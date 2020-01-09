@@ -1,7 +1,7 @@
-Summary: X.Org X11 libXevie runtime library
+Summary: X Event Interceptor Library
 Name: libXevie
-Version: 1.0.2
-Release: 7.1%{?dist}
+Version: 1.0.3
+Release: 4%{?dist}
 License: MIT
 Group: System Environment/Libraries
 URL: http://www.x.org
@@ -9,20 +9,20 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Source0: ftp://ftp.x.org/pub/individual/lib/%{name}-%{version}.tar.bz2
 
-BuildRequires: pkgconfig
 BuildRequires: libX11-devel
 BuildRequires: libXext-devel
 
 %description
-X.Org X11 libXevie runtime library
+X Event Interceptor Library.
 
 %package devel
-Summary: X.Org X11 libXevie development package
+Summary: Development files for %{name}
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
+Requires: pkgconfig
 
 %description devel
-X.Org X11 libXevie development package
+libXevie development package.
 
 %prep
 %setup -q
@@ -35,12 +35,12 @@ X.Org X11 libXevie development package
 %if ! %{with_static}
 	--disable-static
 %endif
-make
+make %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-make install DESTDIR=$RPM_BUILD_ROOT
+make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 
 # We intentionally don't ship *.la files
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
@@ -53,7 +53,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc AUTHORS COPYING README ChangeLog
+%doc AUTHORS COPYING ChangeLog
 %{_libdir}/libXevie.so.1
 %{_libdir}/libXevie.so.1.0.0
 
@@ -69,8 +69,22 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*.3*
 
 %changelog
-* Mon Nov 30 2009 Dennis Gregorovic <dgregor@redhat.com> - 1.0.2-7.1
-- Rebuilt for RHEL 6
+* Thu Jul 19 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.0.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
+
+* Fri Jan 13 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.0.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
+
+* Mon Feb 07 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.0.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
+
+* Mon Nov 01 2010 Peter Hutterer <peter.hutterer@redhat.com> 1.0.3-1
+- libXevie 1.0.3
+
+* Thu Oct 08 2009 Parag <paragn@fedoraproject.org> - 1.0.2-8
+- Merge-Review #226069
+- Removed BR:pkgconfig and added Requires:pkgconfig
+- spec cleanups
 
 * Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.0.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
