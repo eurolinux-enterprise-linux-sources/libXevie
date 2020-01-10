@@ -1,7 +1,7 @@
 Summary: X Event Interceptor Library
 Name: libXevie
 Version: 1.0.3
-Release: 6%{?dist}
+Release: 7.1%{?dist}
 License: MIT
 Group: System Environment/Libraries
 URL: http://www.x.org
@@ -72,6 +72,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*.3*
 
 %changelog
+* Wed Feb 12 2014 Adam Jackson <ajax@redhat.com> 1.0.3-7.1
+- Mass rebuild
+
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 1.0.3-7
+- Mass rebuild 2013-12-27
+
 * Thu Mar 07 2013 Peter Hutterer <peter.hutterer@redhat.com> - 1.0.3-6
 - autoreconf for aarch64
 
